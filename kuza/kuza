@@ -1,0 +1,16 @@
+case 'make:user':
+        $nome  = $argv[2] ?? 'Admin';
+        $email = $argv[3] ?? 'admin@kuzacraft.com';
+        $pass  = $argv[4] ?? 'admin123';
+        
+        $hash = password_hash($pass, PASSWORD_ARGON2ID);
+        
+        try {
+            $db = \Core\Database::getConnection();
+            $stmt = $db->prepare("INSERT INTO users (nome, email, password) VALUES (?, ?, ?)");
+            $stmt->execute([$nome, $email, $hash]);
+            echo "✅ Utilizador $nome criado com sucesso!\n";
+        } catch (\Exception $e) {
+            echo "❌ Erro ao criar utilizador: " . $e->getMessage() . "\n";
+        }
+        break;

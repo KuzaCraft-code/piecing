@@ -1,0 +1,41 @@
+No AutoDB.php (Instalador): Como o teu Database.php exige que a base de dados já exista no .env, o AutoDB.php só precisa de fazer uma conexão temporária "crua" para executar o CREATE DATABASE, e depois pode usar o teu Database::getConnection() para criar as tabelas.
+
+
+-- 1. TABELA DE LEADS (O ponto de entrada para visitantes)
+-- Captura leads da Newsletter, Contactos ou Downloads de materiais
+CREATE TABLE IF NOT EXISTS leads (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NULL,
+    telemovel VARCHAR(255) NULL, -- Encriptado via AutoEncrypt
+    origem ENUM('newsletter', 'contacto', 'blog', 'catalogo') NOT NULL,
+    interesse_principal VARCHAR(100) NULL, -- Ex: 'Nexora', 'Consultoria'
+    status ENUM('frio', 'morno', 'quente', 'convertido') DEFAULT 'frio',
+    ip_address VARCHAR(45),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 2. TABELA DE UTILIZADORES (O perfil completo e convertido)
+-- Aqui entram os Employees, Admins e Customers que já têm senha
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lead_id INT NULL, -- Ligação opcional para saber de onde veio este cliente
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    telemovel VARCHAR(255) NULL, -- Encriptado
+    role ENUM('admin', 'employee', 'editor', 'seller', 'customer') DEFAULT 'customer',
+    status ENUM('active', 'inactive', 'pending') DEFAULT 'pending',
+    last_login TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (lead_id) REFERENCES leads(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+-- 3. HISTÓRICO DE INTERAÇÃO (ISO Timeline)
+-- Para o Admin ver no Dashboard o que o visitante fez antes de se registar
+CREATE TABLE IF NOT EXISTS user_activity_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    identifier VARCHAR(100), -- Email ou Session ID
+    action VARCHAR(255), -- Ex: 'Viu Produto Nexora', 'Subscreveu News'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;    

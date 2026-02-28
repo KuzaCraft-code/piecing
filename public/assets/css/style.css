@@ -1,0 +1,82 @@
+/*  */
+
+/* Branding Kuzacraft */
+:root {
+    --primary-color: #0097b2;
+    --secondary-color: #046362;
+    --dark-color: #181A1C;
+}
+
+body {
+    font-family: 'Inter', 'Tahoma', 'Verdana', sans-serif;
+    color: var(--dark-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border: none;
+}
+
+/* Estilo para o Hero-Slide (Scroll Snap) */
+.hero-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.hero-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.hero-slide {
+    flex: 0 0 100%;
+    height: 70vh;
+    scroll-snap-align: start;
+    background-size: cover;
+    background-position: center;
+}
+
+/*Hero  */
+
+/* Hero Slider com Scroll Snap */
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Esconde scrollbar no Firefox */
+}
+
+.hero-slider::-webkit-scrollbar {
+    display: none; /* Esconde scrollbar no Chrome/Safari */
+}
+
+.hero-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 80vh; /* 80% da altura da tela */
+    scroll-snap-align: start;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Efeito de transição suave no texto */
+.hero-slide h2 {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

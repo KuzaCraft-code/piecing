@@ -1,0 +1,15 @@
+{
+    "name": "kuzacraft/piecing",
+    "description": "Framework de alta performance Kuzacraft",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "app/Core/",
+            "Controllers\\": "app/Controllers/",
+            "Models\\": "app/Models/"
+        }
+    },
+    "require": {
+        "php": ">=8.0",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
