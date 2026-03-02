@@ -1,15 +1,11 @@
 [
-  { "name": "África do Sul", "code": "+27", "flag": "🇿🇦" },
-  { "name": "Alemanha", "code": "+49", "flag": "🇩🇪" },
-  { "name": "Angola", "code": "+244", "flag": "🇦🇴" },
-  { "name": "Brasil", "code": "+55", "flag": "🇧🇷" },
-  { "name": "Cabo Verde", "code": "+238", "flag": "🇨🇻" },
-  { "name": "China", "code": "+86", "flag": "🇨🇳" },
-  { "name": "Estados Unidos", "code": "+1", "flag": "🇺🇸" },
-  { "name": "Guiné-Bissau", "code": "+245", "flag": "🇬🇼" },
-  { "name": "Moçambique", "code": "+258", "flag": "🇲🇿" },
-  { "name": "Portugal", "code": "+351", "flag": "🇵🇹" },
-  { "name": "Reino Unido", "code": "+44", "flag": "🇬🇧" },
-  { "name": "São Tomé e Príncipe", "code": "+239", "flag": "🇸🇹" },
-  { "name": "Timor-Leste", "code": "+670", "flag": "🇹🇱" }
+  { "name": "África do Sul", "code": "+27", "flag": "🇿🇦", "iso": "ZA" },
+  { "name": "Angola", "code": "+244", "flag": "🇦🇴", "iso": "AO" },
+  { "name": "Brasil", "code": "+55", "flag": "🇧🇷", "iso": "BR" },
+  { "name": "Cabo Verde", "code": "+238", "flag": "🇨🇻", "iso": "CV" },
+  { "name": "Guiné-Bissau", "code": "+245", "flag": "🇬🇼", "iso": "GW" },
+  { "name": "Moçambique", "code": "+258", "flag": "🇲🇿", "iso": "MZ" },
+  { "name": "Portugal", "code": "+351", "flag": "🇵🇹", "iso": "PT" },
+  { "name": "São Tomé e Príncipe", "code": "+239", "flag": "🇸🇹", "iso": "ST" },
+  { "name": "Timor-Leste", "code": "+670", "flag": "🇹🇱", "iso": "TL" }
 ]

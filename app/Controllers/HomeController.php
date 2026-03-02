@@ -36,7 +36,7 @@ class HomeController extends Controller
         $jsonPath = dirname(__DIR__, 2) . '/storage/data/countries.json';
 
         if (file_exists($jsonPath)) {
-            $countries = json_decode(file_get_contents($jsonPath), true);
+            $countries = json_decode(file_get_contents($jsonPath), true) ?? [];
         } else {
             $countries = []; // Array vazio para não quebrar o foreach na view
         }
@@ -50,6 +50,8 @@ class HomeController extends Controller
             'metrics'    => json_decode($sections['metrics']['content'] ?? '[]', true),
             'slides'     => $slides,
             'db_status'  => $dbOnline,
+
+            
             'countries'  => $countries // ← NOVO dado enviado para a view
         ]);
     }

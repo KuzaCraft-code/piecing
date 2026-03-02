@@ -45,17 +45,37 @@
                                 <div class="col-md-12">
                                     <label class="form-label small fw-bold">TELEMÓVEL</label>
                                     <div class="input-group">
-                                        <select name="ddi" class="form-select" style="max-width: 140px; background-color: #f8f9fa;">
-                                            <?php if (!empty($countries)): ?>
-                                                <?php foreach ($countries as $country): ?>
-                                                    <option value="<?= $country['code']; ?>" <?= $country['code'] === '+258' ? 'selected' : ''; ?>>
-                                                        <?= $country['flag']; ?> <?= $country['code']; ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            <?php else: ?>
-                                                <option value="+258">🇲🇿 +258</option>
-                                            <?php endif; ?>
+                                        <select name="ddi" id="ddi-select" class="form-select" style="max-width: 140px; background-color: #f8f9fa;">
+                                            <?php foreach ($countries as $country): ?>
+                                                <option value="<?= $country['code']; ?>" data-country-name="<?= $country['name']; ?>">
+                                                    <?= $country['flag']; ?> <?= $country['code']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
+
+                                        <script>
+                                            // Lógica para detecção automática de país 
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                fetch('http://ip-api.com/json/')
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        const userCountry = data.country; // Ex: "Brazil" ou "Mozambique"
+                                                        const select = document.getElementById('ddi-select');
+
+                                                        // Procura a opção que corresponde ao país detectado
+                                                        for (let i = 0; i < select.options.length; i++) {
+                                                            const optionName = select.options[i].getAttribute('data-country-name');
+
+                                                            // Comparação simples (ajuste conforme a tradução se necessário)
+                                                            if (optionName === userCountry || optionName.includes(userCountry)) {
+                                                                select.selectedIndex = i;
+                                                                break;
+                                                            }
+                                                        }
+                                                    })
+                                                    .catch(err => console.error("Erro ao detectar localização:", err));
+                                            });
+                                        </script>
                                         <input type="tel" name="telemovel" class="form-control" placeholder="8X XXX XXXX" required>
                                     </div>
                                     <small class="text-muted" style="font-size: 0.75rem;">Selecione o código do seu país.</small>
