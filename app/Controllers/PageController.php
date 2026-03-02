@@ -4,9 +4,12 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\Database;
+use Core\DataHelper; // Importação da Trait para manipulação de dados
 
 class PageController extends Controller
 {
+    use DataHelper; // Ativando a funcionalidade de carregamento de JSON
+
     public function about()
     {
         return $this->view('pages/about', ['title' => 'Sobre Nós - Kuzacraft']);
@@ -14,7 +17,14 @@ class PageController extends Controller
 
     public function contact()
     {
-        return $this->view('pages/contact', ['title' => 'Contacto - Kuzacraft']);
+        // 1. CARREGAMENTO DOS PAÍSES (Usando a Trait para limpeza e performance)
+        // O método loadJsonData já cuida do caminho absoluto e do tratamento de erro
+        $countries = $this->loadJsonData('countries');
+
+        return $this->view('pages/contact', [
+            'title'     => 'Contacto - Kuzacraft',
+            'countries' => $countries
+        ]);
     }
 
     /**
@@ -53,10 +63,10 @@ class PageController extends Controller
             $stmt->execute([
                 ':nome'       => $nome,
                 ':email'      => $email,
-                ':telemovel'  => $telemovel_completo, // Será encriptado automaticamente se o AutoDB estiver ativo
-                ':origem'     => 'contacto',         // Define que veio do formulário de contacto
-                ':status'     => 'visitante',        // Estado inicial da Lead
-                ':location'   => $assunto,           // Usamos o assunto como contexto de interesse
+                ':telemovel'  => $telemovel_completo,
+                ':origem'     => 'contacto',
+                ':status'     => 'visitante',
+                ':location'   => $assunto,
                 ':ip_address' => $ip_address
             ]);
 

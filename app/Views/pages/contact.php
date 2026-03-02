@@ -41,20 +41,26 @@
                                     <label class="form-label small fw-bold">E-MAIL</label>
                                     <input type="email" name="email" class="form-control" placeholder="exemplo@mail.com" required>
                                 </div>
+
                                 <div class="col-md-12">
                                     <label class="form-label small fw-bold">TELEMÓVEL</label>
-                                    <div class="input-group shadow-sm">
-                                        <select name="ddi" class="form-select border-end-0" style="max-width: 130px; background-color: #f8f9fa;">
-                                            <option value="+258" selected>🇲🇿 +258</option>
-                                            <option value="+244">🇦🇴 +244</option>
-                                            <option value="+27">🇿🇦 +27</option>
-                                            <option value="+351">🇵🇹 +351</option>
-                                            <option value="+55">🇧🇷 +55</option>
+                                    <div class="input-group">
+                                        <select name="ddi" class="form-select" style="max-width: 140px; background-color: #f8f9fa;">
+                                            <?php if (!empty($countries)): ?>
+                                                <?php foreach ($countries as $country): ?>
+                                                    <option value="<?= $country['code']; ?>" <?= $country['code'] === '+258' ? 'selected' : ''; ?>>
+                                                        <?= $country['flag']; ?> <?= $country['code']; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <option value="+258">🇲🇿 +258</option>
+                                            <?php endif; ?>
                                         </select>
-                                        <input type="tel" name="telemovel" class="form-control" placeholder="8X XXX XXXX" pattern="[0-9]{8,15}" title="Apenas números (8 a 15 dígitos)">
+                                        <input type="tel" name="telemovel" class="form-control" placeholder="8X XXX XXXX" required>
                                     </div>
                                     <small class="text-muted" style="font-size: 0.75rem;">Selecione o código do seu país.</small>
                                 </div>
+
                                 <div class="col-md-12">
                                     <label class="form-label small fw-bold">ASSUNTO</label>
                                     <select name="assunto" class="form-select">

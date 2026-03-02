@@ -7,17 +7,23 @@ use Controllers\ServiceController;
 use Controllers\PaymentController;
 use Controllers\DashboardController;
 
-// ... (tuas rotas anteriores) ...
+/** * Roteamento do Framework Piecing
+ * Foco: Saneamento de dados e carregamento de JSON
+ */
 
-// Rotas da Área Administrativa (Dashboard)
-$router->get('/dashboard', [DashboardController::class, 'index']);
-
-
-// Home e Páginas Simples
+// Home e Páginas Institucionais
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [PageController::class, 'about']);
 $router->get('/contact', [PageController::class, 'contact']);
-$router->post('/contact/send', [Controllers\PageController::class, 'sendContact']);
+
+// Processamento de Formulário (Lead Capture)
+// Corrigido para usar a classe importada consistentemente
+$router->post('/contact/send', [PageController::class, 'sendContact']);
+
+// Área Administrativa (Dashboard)
+$router->get('/dashboard', [DashboardController::class, 'index']);
+$router->post('/dashboard/promote-lead', [DashboardController::class, 'promoteLead']);
+
 // Dinâmico (LMS, Gestão, etc)
 $router->get('/servico/{slug}', [ServiceController::class, 'show']);
 
@@ -26,12 +32,9 @@ $router->get('/login', [AuthController::class, 'showLogin']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->get('/logout', [AuthController::class, 'logout']);
 
-
-// Rotas de Reset Obrigatório (Corrigidas)
+// Redefinição de Senha
 $router->get('/password-reset-required', [AuthController::class, 'showPasswordReset']);
 $router->post('/password-update', [AuthController::class, 'updatePassword']);
 
-// Rotas de Promoção de Leads (Dashboard)
-$router->post('/dashboard/promote-lead', [DashboardController::class, 'promoteLead']);
-// Pagamentos
+// Pagamentos Integrados
 $router->post('/pagamento/mpesa', [PaymentController::class, 'process']);
